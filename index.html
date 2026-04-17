@@ -125,6 +125,12 @@
     object-position: center top;
     filter: brightness(0.45) grayscale(0.3);
   }
+
+  video.hero-img {
+  object-fit: cover;
+  object-position: center top;
+}
+
   .hero-overlay {
     position: absolute;
     inset: 0;
@@ -1308,6 +1314,14 @@ window.onclick = function(e) {
 function toggleMenu() {
   document.querySelector('.nav-links').classList.toggle('show');
 }
+</script>
+
+<script>
+  const heroVideo = document.querySelector('.hero-img');
+  if (heroVideo) {
+    heroVideo.muted = true;
+    heroVideo.play().catch(() => {});
+  }
 </script>
 
 
