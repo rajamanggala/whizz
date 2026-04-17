@@ -1,0 +1,1347 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WHIZZ — Clothing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --black: #0a0a0a;
+    --white: #f5f2ed;
+    --red: #cc2200;
+    --gray: #2a2a2a;
+    --mid: #888;
+    --font-display: 'Bebas Neue', sans-serif;
+    --font-mono: 'Space Mono', monospace;
+    --font-body: 'Outfit', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: var(--font-body);
+    overflow-x: hidden;
+    cursor: default;
+  }
+
+  /* ─── MARQUEE ─── */
+  .marquee-bar {
+    background: var(--red);
+    padding: 7px 0;
+    overflow: hidden;
+    white-space: nowrap;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .marquee-inner {
+    display: inline-block;
+    animation: marquee 22s linear infinite;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--white);
+    text-transform: uppercase;
+  }
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* ─── NAV ─── */
+  nav {
+    position: sticky;
+    top: 29px;
+    z-index: 99;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 40px;
+    background: var(--black);
+    border-bottom: 1px solid #1f1f1f;
+  }
+  .logo {
+    font-family: var(--font-display);
+    font-size: 28px;
+    letter-spacing: 0.06em;
+    color: var(--white);
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .logo img {
+    height: 40px;
+    width: auto;
+    cursor: pointer;
+  }
+  @media (max-width: 768px) {
+    .logo img { height: 26px; }
+  }
+  @media (max-width: 480px) {
+    .logo img { height: 26px; }
+  }
+  .logo span { color: var(--red); }
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--mid);
+    text-decoration: none;
+    transition: color 0.2s;
+    cursor: pointer;
+  }
+  .nav-links a:hover, .nav-links a.active { color: var(--white); }
+  .nav-icons { display: flex; gap: 18px; align-items: center; }
+  .nav-icons svg { width: 18px; height: 18px; stroke: var(--mid); fill: none; cursor: pointer; transition: stroke 0.2s; }
+  .nav-icons svg:hover { stroke: var(--white); }
+
+  /* ─── PAGES ─── */
+  .page { display: none; min-height: 100vh; }
+  .page.active { display: block; }
+
+  /* ─── HOME ─── */
+  .hero {
+    position: relative;
+    height: calc(100vh - 80px);
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+  }
+  .hero-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    filter: brightness(0.45) grayscale(0.3);
+  }
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0.3) 50%, transparent 100%);
+  }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 0 40px 50px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(72px, 12vw, 160px);
+    line-height: 0.9;
+    letter-spacing: 0.02em;
+    color: var(--white);
+  }
+  .hero-title .accent { color: var(--red); }
+  .hero-sub {
+    text-align: right;
+    max-width: 280px;
+  }
+  .hero-sub p {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 20px;
+    line-height: 1.8;
+  }
+  .btn {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 14px 28px;
+    border: 1px solid var(--white);
+    color: var(--white);
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+    background: transparent;
+  }
+  .btn:hover { background: var(--white); color: var(--black); }
+  .btn.red { border-color: var(--red); color: var(--red); }
+  .btn.red:hover { background: var(--red); color: var(--white); }
+  .btn.filled { background: var(--white); color: var(--black); }
+  .btn.filled:hover { background: var(--red); border-color: var(--red); color: var(--white); }
+
+  /* Home sections */
+  .section { padding: 80px 40px; }
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 16px;
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 6vw, 72px);
+    line-height: 1;
+    letter-spacing: 0.04em;
+    margin-bottom: 40px;
+  }
+
+  .featured-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2px;
+    margin-bottom: 40px;
+  }
+  .featured-item {
+    position: relative;
+    aspect-ratio: 3/4;
+    overflow: hidden;
+    cursor: pointer;
+  }
+  .featured-item.tall { grid-row: span 2; }
+  .featured-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(0.2) brightness(0.8);
+    transition: filter 0.4s, transform 0.6s;
+  }
+  .featured-item:hover img { filter: grayscale(0) brightness(0.9); transform: scale(1.03); }
+  .featured-item-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    background: linear-gradient(to top, rgba(10,10,10,0.9) 0%, transparent 100%);
+  }
+  .featured-item-info span {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--mid);
+    display: block;
+    margin-bottom: 4px;
+  }
+  .featured-item-info p {
+    font-family: var(--font-display);
+    font-size: 20px;
+    letter-spacing: 0.06em;
+    color: var(--white);
+  }
+
+  .manifesto-section {
+    background: var(--white);
+    color: var(--black);
+    padding: 80px 40px;
+    text-align: center;
+  }
+  .manifesto-text {
+    font-family: var(--font-display);
+    font-size: clamp(28px, 4vw, 52px);
+    line-height: 1.15;
+    letter-spacing: 0.04em;
+    max-width: 900px;
+    margin: 0 auto 40px;
+  }
+  .manifesto-text span { color: var(--red); }
+
+  /* ─── SHOP ─── */
+  .shop-header {
+    padding: 50px 40px 30px;
+    border-bottom: 1px solid #1f1f1f;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .shop-header h1 {
+    font-family: var(--font-display);
+    font-size: 56px;
+    letter-spacing: 0.04em;
+  }
+  .filter-bar { display: flex; gap: 4px; }
+  .filter-btn {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    border: 1px solid #2a2a2a;
+    background: transparent;
+    color: var(--mid);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .filter-btn.active, .filter-btn:hover {
+    border-color: var(--white);
+    color: var(--white);
+  }
+
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    padding: 2px;
+  }
+  .product-card {
+    background: #0e0e0e;
+    cursor: pointer;
+    transition: background 0.2s;
+    position: relative;
+  }
+  .product-card:hover { background: #141414; }
+
+  /* ─── PRODUCT IMAGE CROSSFADE ─── */
+  .product-card-img {
+    aspect-ratio: 3/4;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* Gambar utama — tampil default */
+  .product-card-img .img-main {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    filter: grayscale(0.15);
+    opacity: 1;
+    transition: opacity 0.5s ease;
+    z-index: 1;
+  }
+
+  /* Gambar detail — tersembunyi, muncul saat hover */
+  .product-card-img .img-detail {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 2;
+  }
+
+  /* Saat hover: crossfade smooth, tanpa zoom */
+  .product-card:hover .img-main { opacity: 0; }
+  .product-card:hover .img-detail { opacity: 1; }
+
+  /* ─────────────────────────────── */
+
+  .wish-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 32px;
+    height: 32px;
+    background: rgba(10,10,10,0.7);
+    border: 1px solid #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s;
+    z-index: 3;
+  }
+  .product-card:hover .wish-btn { opacity: 1; }
+  .wish-btn svg { width: 14px; height: 14px; stroke: var(--white); fill: none; }
+
+  .product-card-info {
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .product-card-name {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--white);
+    line-height: 1.5;
+  }
+  .product-card-price {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--mid);
+    white-space: nowrap;
+    margin-left: 12px;
+  }
+
+  /* ─── ABOUT ─── */
+  .about-hero {
+    height: 60vh;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .about-hero img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.3) grayscale(0.5);
+  }
+  .about-hero-text { position: relative; z-index: 2; text-align: center; }
+  .about-hero-text h1 {
+    font-family: var(--font-display);
+    font-size: clamp(60px, 12vw, 140px);
+    letter-spacing: 0.08em;
+    color: var(--white);
+  }
+  .about-hero-text p {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--red);
+  }
+
+  .about-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    padding: 80px 40px;
+    align-items: start;
+  }
+  .about-text h2 {
+    font-family: var(--font-display);
+    font-size: 42px;
+    letter-spacing: 0.04em;
+    margin-bottom: 24px;
+  }
+  .about-text p { font-size: 15px; line-height: 1.8; color: #aaa; margin-bottom: 20px; }
+  .about-text p strong { color: var(--white); font-weight: 500; }
+  .about-img-stack {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 2px;
+  }
+  .about-img-stack img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    filter: grayscale(0.3) brightness(0.85);
+  }
+  .about-img-stack img:first-child { grid-column: span 2; aspect-ratio: 16/7; }
+
+  .values-row {
+    border-top: 1px solid #1f1f1f;
+    padding: 60px 40px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+  }
+  .value-num { font-family: var(--font-display); font-size: 56px; color: #1f1f1f; line-height: 1; margin-bottom: 16px; }
+  .value-title {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 12px;
+  }
+  .value-desc { font-size: 14px; line-height: 1.8; color: #888; }
+
+  /* ─── LOOKBOOK ─── */
+  .lookbook-header {
+    padding: 60px 40px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .lookbook-header h1 {
+    font-family: var(--font-display);
+    font-size: 72px;
+    letter-spacing: 0.04em;
+    line-height: 1;
+  }
+  .lookbook-header p {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--mid);
+    text-transform: uppercase;
+    text-align: right;
+    max-width: 220px;
+    line-height: 1.8;
+  }
+
+  .lookbook-masonry { padding: 0 2px 2px; columns: 3; column-gap: 2px; }
+  .lookbook-item {
+    break-inside: avoid;
+    margin-bottom: 2px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+  }
+  .lookbook-item img {
+    width: 100%;
+    display: block;
+    filter: grayscale(0.2) brightness(0.8);
+    transition: filter 0.4s, transform 0.6s;
+  }
+  .lookbook-item:hover img { filter: grayscale(0) brightness(1); transform: scale(1.02); }
+  .lookbook-item-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(10,10,10,0.7);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .lookbook-item:hover .lookbook-item-overlay { opacity: 1; }
+  .lookbook-item-overlay span {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 8px;
+  }
+  .lookbook-item-overlay p {
+    font-family: var(--font-display);
+    font-size: 24px;
+    letter-spacing: 0.06em;
+    color: var(--white);
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    border-top: 1px solid #1f1f1f;
+    padding: 50px 40px 30px;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 40px;
+  }
+  .footer-brand .logo { display: block; margin-bottom: 16px; font-size: 32px; }
+  .footer-brand p { font-size: 13px; line-height: 1.8; color: #666; max-width: 220px; }
+  .footer-col h4 {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 16px;
+  }
+  .footer-col a { display: block; font-size: 13px; color: #666; text-decoration: none; margin-bottom: 10px; transition: color 0.2s; }
+  .footer-col a:hover { color: var(--white); }
+  .footer-bottom {
+    border-top: 1px solid #1a1a1a;
+    margin-top: 30px;
+    padding: 20px 40px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-bottom p {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: #444;
+    text-transform: uppercase;
+  }
+
+  .divider { height: 1px; background: #1f1f1f; margin: 0; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .page.active > * { animation: fadeUp 0.4s ease forwards; }
+
+  /* ─── MODAL ─── */
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 120px;
+    overflow-y: auto;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.3s ease;
+  }
+  .modal.show { opacity: 1; pointer-events: auto; }
+  .modal-content {
+    background: #111;
+    border-radius: 16px;
+    text-align: center;
+    max-width: 350px;
+    width: 90%;
+    transform: scale(0.8);
+    transition: 0.3s ease;
+    position: relative;
+    padding: 30px 20px 20px;
+  }
+  .modal.show .modal-content { transform: scale(1); }
+  .modal img { width: 100%; border-radius: 12px; margin-bottom: 15px; }
+  .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    z-index: 10;
+    cursor: pointer;
+  }
+  .buy-btn {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 20px;
+    background: #ff3b3b;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+  }
+
+  /* ─── MOBILE NAV ─── */
+  .menu-toggle { display: none; font-size: 24px; cursor: pointer; }
+  @media (max-width: 768px) {
+    .menu-toggle { display: block; }
+    .nav-links {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      background: var(--black);
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      padding: 20px 0;
+      display: none;
+    }
+    .nav-links.show { display: flex; }
+  }
+
+/* ─── RESPONSIVE SHOP ─── */
+
+/* Tablet (max 1024px) → 3 kolom */
+@media (max-width: 1024px) {
+  .product-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Tablet kecil (max 768px) → 2 kolom */
+@media (max-width: 768px) {
+  .shop-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 30px 16px 20px;
+  }
+  .shop-header h1 {
+    font-size: 36px;
+  }
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile (max 480px) → 2 kolom tetap, tapi padding dikecilkan */
+@media (max-width: 480px) {
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    padding: 1px;
+  }
+  .product-card-name {
+    font-size: 9px;
+  }
+  .product-card-price {
+    font-size: 9px;
+  }
+  .product-card-info {
+    padding: 10px 8px;
+  }
+}
+
+/* ─── EDITORIAL GRID ─── */
+.editorial-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+}
+.editorial-item {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 16/9;
+  cursor: pointer;
+}
+.editorial-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.6);
+  transition: transform 0.5s;
+}
+.editorial-item:hover img { transform: scale(1.03); }
+.editorial-info {
+  position: absolute;
+  bottom: 30px;
+  left: 30px;
+}
+.editorial-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 8px;
+}
+.editorial-title {
+  font-family: var(--font-display);
+  font-size: 36px;
+  letter-spacing: 0.06em;
+  color: var(--white);
+  line-height: 1.1;
+}
+
+/* ─── RESPONSIVE HOME ─── */
+@media (max-width: 768px) {
+  .hero-content { flex-direction: column; align-items: flex-start; gap: 20px; padding: 0 20px 40px; }
+  .hero-sub { text-align: left; }
+
+  .section { padding: 50px 16px; }
+  .featured-grid { grid-template-columns: 1fr 1fr; }
+  .featured-item.tall { grid-row: span 1; }
+
+  .manifesto-section { padding: 50px 20px; }
+
+  .editorial-grid { grid-template-columns: 1fr; }
+  .editorial-item { aspect-ratio: 4/3; }
+  .editorial-title { font-size: 28px; }
+  .editorial-info { bottom: 20px; left: 20px; }
+
+  footer { grid-template-columns: 1fr 1fr; gap: 30px; padding: 40px 16px 20px; }
+  .footer-brand { grid-column: span 2; }
+  .footer-bottom { padding: 16px 16px 0; flex-direction: column; gap: 8px; text-align: center; }
+}
+
+@media (max-width: 480px) {
+  .featured-grid { grid-template-columns: 1fr 1fr; gap: 1px; }
+  .editorial-title { font-size: 22px; }
+}
+
+/* ─── RESPONSIVE SHOP ─── */
+@media (max-width: 1024px) {
+  .product-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 768px) {
+  .shop-header { flex-direction: column; align-items: flex-start; gap: 16px; padding: 30px 16px 20px; }
+  .shop-header h1 { font-size: 36px; }
+  .product-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+  .product-grid { grid-template-columns: repeat(2, 1fr); gap: 1px; padding: 1px; }
+  .product-card-name { font-size: 9px; }
+  .product-card-price { font-size: 9px; }
+  .product-card-info { padding: 10px 8px; }
+}
+</style>
+</head>
+<body>
+
+<!-- MARQUEE -->
+<div class="marquee-bar">
+  <span class="marquee-inner">
+    &nbsp;&nbsp;&nbsp;&nbsp;WHIZZ CLOTHING — WEAR THE NOISE &nbsp;⊕&nbsp; NEW COLLECTION AVAILABLE NOW &nbsp;⊕&nbsp; FREE SHIPPING OVER RP 500.000 &nbsp;⊕&nbsp; MADE FOR THE RESTLESS &nbsp;⊕&nbsp; WEAR THE NOISE &nbsp;⊕&nbsp; NEW COLLECTION AVAILABLE NOW &nbsp;⊕&nbsp; FREE SHIPPING OVER RP 500.000 &nbsp;⊕&nbsp; MADE FOR THE RESTLESS &nbsp;⊕&nbsp; WHIZZ CLOTHING — WEAR THE NOISE &nbsp;⊕&nbsp; NEW COLLECTION AVAILABLE NOW &nbsp;⊕&nbsp; FREE SHIPPING OVER RP 500.000 &nbsp;⊕&nbsp; MADE FOR THE RESTLESS &nbsp;⊕&nbsp;
+  </span>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a class="logo" onclick="showPage('home')">
+    <img src="img/whz.png" alt="WHIZZ Logo">
+  </a>
+  <ul class="nav-links">
+    <li><a onclick="showPage('home')" id="nav-home" class="active">Home</a></li>
+    <li><a onclick="showPage('shop')" id="nav-shop">Shop</a></li>
+    <li><a onclick="showPage('lookbook')" id="nav-lookbook">Lookbook</a></li>
+    <li><a onclick="showPage('about')" id="nav-about">About</a></li>
+  </ul>
+  <div class="nav-icons">
+      <!-- WhatsApp -->
+     <a href="https://wa.me/123" target="_blank">
+        <svg viewBox="0 0 24 24">
+          <path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/>
+        </svg>
+      </a>
+
+      <!-- Instagram -->
+      <a href="https://instagram.com/usernamekamu" target="_blank">
+        <svg viewBox="0 0 24 24">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+          <circle cx="12" cy="12" r="4"/>
+          <circle cx="18" cy="6" r="1"/>
+        </svg>
+      </a>
+
+      <!-- Shopee -->
+      <a href="https://shopee.co.id/usernamekamu" target="_blank">
+        <svg viewBox="0 0 24 24">
+          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <path d="M16 10a4 4 0 0 1-8 0"/>
+        </svg>
+      </a>
+  </div>
+
+  <div class="menu-toggle" onclick="toggleMenu()">
+    ☰
+  </div>
+</nav>
+
+<!-- ════════════════ HOME PAGE ════════════════ -->
+<div class="page active" id="page-home">
+
+  <section class="hero">
+    <video
+      class="hero-img"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="auto">
+      <source src="img/header.mp4" type="video/mp4">
+    </video>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-title">
+        WEAR<br>THE<br><span class="accent">NOISE</span>
+      </div>
+      <div class="hero-sub">
+        <p>New Arrivals<br>SS 2025 Collection<br>Drop 001</p>
+        <a class="btn filled" onclick="showPage('shop')">Shop Now</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <p class="section-label">// Featured Drops</p>
+    <h2 class="section-title">New Arrivals</h2>
+    <div class="featured-grid">
+      <div class="featured-item tall" onclick="showPage('shop')">
+        <img src="img/pexels-photo-2220316.jpg?auto=compress&cs=tinysrgb&w=800" alt="Drop 01">
+        <div class="featured-item-info"><span>Drop 001</span><p>Void Tee</p></div>
+      </div>
+      <div class="featured-item" onclick="showPage('shop')">
+        <img src="img/pexels-photo-1040945.jpg?auto=compress&cs=tinysrgb&w=800" alt="Drop 02">
+        <div class="featured-item-info"><span>Drop 002</span><p>Static Boxy</p></div>
+      </div>
+      <div class="featured-item" onclick="showPage('shop')">
+        <img src="img/pexels-photo-2916814.jpg?auto=compress&cs=tinysrgb&w=800" alt="Drop 03">
+        <div class="featured-item-info"><span>Drop 003</span><p>Glitch Print</p></div>
+      </div>
+      <div class="featured-item" onclick="showPage('shop')">
+        <img src="img/pexels-photo-1192609.jpg?auto=compress&cs=tinysrgb&w=800" alt="Drop 04">
+        <div class="featured-item-info"><span>Drop 004</span><p>Raw Edge</p></div>
+      </div>
+      <div class="featured-item" onclick="showPage('shop')">
+        <img src="img/pexels-photo-2741701.jpg?auto=compress&cs=tinysrgb&w=800" alt="Drop 05">
+        <div class="featured-item-info"><span>Drop 005</span><p>Signal Tee</p></div>
+      </div>
+    </div>
+    <div style="text-align:center"><a class="btn" onclick="showPage('shop')">View All Products</a></div>
+  </section>
+
+  <div class="manifesto-section">
+    <p class="manifesto-text">
+      Clothing is not fashion.<br>
+      Clothing is <span>language</span>.<br>
+      We make yours <span>louder</span>.
+    </p>
+    <a class="btn" style="border-color:#0a0a0a; color:#0a0a0a;" onclick="showPage('about')">Our Story</a>
+  </div>
+
+  <section class="section" style="padding-top: 80px;">
+    <p class="section-label">// Lookbook SS 2025</p>
+    <h2 class="section-title">Editorial</h2>
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 2px;">
+      <div style="position:relative; overflow:hidden; aspect-ratio:16/9; cursor:pointer" onclick="showPage('lookbook')">
+        <img src="img/pexels-photo-2905238.jpg" style="width:100%;height:100%;object-fit:cover;filter:brightness(0.6)" alt="Lookbook 1">
+        <div style="position:absolute;bottom:30px;left:30px">
+          <p style="font-family:var(--font-mono);font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--red);margin-bottom:8px">SS 2025</p>
+          <p style="font-family:var(--font-display);font-size:36px;letter-spacing:0.06em">Concrete<br>Jungle</p>
+        </div>
+      </div>
+      <div style="position:relative; overflow:hidden; aspect-ratio:16/9; cursor:pointer" onclick="showPage('lookbook')">
+        <img src="img/pexels-photo-16566845.jpg" style="width:100%;height:100%;object-fit:cover;filter:brightness(0.6)" alt="Lookbook 2">
+        <div style="position:absolute;bottom:30px;left:30px">
+          <p style="font-family:var(--font-mono);font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--red);margin-bottom:8px">Campaign 01</p>
+          <p style="font-family:var(--font-display);font-size:36px;letter-spacing:0.06em">Static<br>Dreams</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-brand">
+      <a class="logo" onclick="showPage('home')">WHIZZ<span style="color:var(--red)">°</span></a>
+      <p>Clothing untuk mereka yang hidup di frekuensi berbeda. Jakarta-based, global-minded.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Explore</h4>
+      <a onclick="showPage('shop')">Shop</a>
+      <a onclick="showPage('lookbook')">Lookbook</a>
+      <a onclick="showPage('about')">About</a>
+    </div>
+    <div class="footer-col">
+      <h4>Info</h4>
+      <a href="#">Size Guide</a>
+      <a href="#">Shipping</a>
+      <a href="#">Returns</a>
+    </div>
+    <div class="footer-col">
+      <h4>Social</h4>
+      <a href="#">Instagram</a>
+      <a href="#">TikTok</a>
+      <a href="#">Twitter/X</a>
+    </div>
+  </footer>
+  <div class="footer-bottom">
+    <p>© 2025 Whizz Clothing. All rights reserved.</p>
+    <p>Jakarta, Indonesia</p>
+  </div>
+
+</div><!-- /home -->
+
+
+<!-- ════════════════ SHOP PAGE ════════════════ -->
+<div class="page" id="page-shop">
+  <div class="shop-header">
+    <div>
+      <p class="section-label">// Whizz Store</p>
+      <h1>T-SHIRTS</h1>
+    </div>
+    <div class="filter-bar">
+      <button class="filter-btn active">All</button>
+      <button class="filter-btn">Limited</button>
+    </div>
+  </div>
+
+  <div class="product-grid">
+
+    <!-- 1 -->
+    <div class="product-card"
+    onclick="openModal('img/shop/ano-detail.jpg','Void Graphic Tee','Rp 289.000','https://wa.me/123?text=Halo%20saya%20mau%20order%20Void%20Graphic%20Tee')">
+      <div class="product-card-img">
+        <img class="img-main" src="img/shop/ano.jpg">
+        <img class="img-detail" src="img/shop/ano-detail.jpg">
+      </div>
+      <div class="product-card-info">
+        <div class="product-card-name">Void Graphic Tee</div>
+        <div class="product-card-price">Rp 289.000</div>
+      </div>
+    </div>
+
+    <!-- 2 -->
+    <div class="product-card"
+    onclick="openModal('img/shop/corpdelight-detail.jpg','Static Boxy Tee','Rp 319.000','https://wa.me/123?text=Halo%20saya%20mau%20order%20Void%20Graphic%20Tee')">
+      <div class="product-card-img">
+        <img class="img-main" src="img/shop/corpdelight.jpg">
+        <img class="img-detail" src="img/shop/corpdelight-detail.jpg">
+      </div>
+      <div class="product-card-info">
+        <div class="product-card-name">Static Boxy Tee</div>
+        <div class="product-card-price">Rp 319.000</div>
+      </div>
+    </div>
+
+    <!-- 3 -->
+
+     <div class="product-card"
+    onclick="openModal('img/shop/j61-14-detail.jpg','Raw Edge Tee','Rp 299.000','https://wa.me/123?text=Halo%20saya%20mau%20order%20Void%20Graphic%20Tee')">
+      <div class="product-card-img">
+        <img class="img-main" src="img/shop/j61-14.jpg">
+        <img class="img-detail" src="img/shop/j61-14-detail.jpg">
+      </div>
+      <div class="product-card-info">
+        <div class="product-card-name">Raw Edge Tee</div>
+        <div class="product-card-price">Rp 299.000</div>
+      </div>
+    </div>
+
+    <!-- 4 -->
+    <div class="product-card"
+    onclick="openModal('img/shop/hope-detail.jpg','Glitch Print Tee','Rp 349.000','https://wa.me/123?text=Halo%20saya%20mau%20order%20Void%20Graphic%20Tee')">
+      <div class="product-card-img">
+        <img class="img-main" src="img/shop/hope.jpg">
+        <img class="img-detail" src="img/shop/hope-detail.jpg">
+      </div>
+      <div class="product-card-info">
+        <div class="product-card-name">Glitch Print Tee</div>
+        <div class="product-card-price">Rp 349.000</div>
+      </div>
+    </div>
+   
+  </div><!-- /product-grid -->
+
+  <footer>
+    <div class="footer-brand">
+      <a class="logo" onclick="showPage('home')">WHIZZ<span style="color:var(--red)">°</span></a>
+      <p>Clothing untuk mereka yang hidup di frekuensi berbeda.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Explore</h4>
+      <a onclick="showPage('home')">Home</a>
+      <a onclick="showPage('lookbook')">Lookbook</a>
+      <a onclick="showPage('about')">About</a>
+    </div>
+    <div class="footer-col">
+      <h4>Info</h4>
+      <a href="#">Size Guide</a>
+      <a href="#">Shipping</a>
+    </div>
+    <div class="footer-col">
+      <h4>Social</h4>
+      <a href="#">Instagram</a>
+      <a href="#">TikTok</a>
+    </div>
+  </footer>
+
+  <div class="footer-bottom">
+    <p>© 2025 Whizz Clothing. All rights reserved.</p>
+    <p>Jakarta, Indonesia</p>
+  </div>
+
+</div><!-- /page-shop -->
+
+
+<!-- ════════════════ LOOKBOOK PAGE ════════════════ -->
+<div class="page" id="page-lookbook">
+
+  <div class="lookbook-header">
+    <div>
+      <p class="section-label">// SS 2025</p>
+      <h1>LOOK<br>BOOK</h1>
+    </div>
+    <p>Concrete Jungle Campaign<br>Shot on location, Jakarta<br>Feb 2025</p>
+  </div>
+
+  <div class="lookbook-masonry">
+
+    <div class="lookbook-item" onclick="openLookbook(0)">
+      <img src="img/pexels-photo-2220316.jpg?auto=compress&cs=tinysrgb&w=800" alt="Look 01">
+      <div class="lookbook-item-overlay"><span>Look 01</span><p>Void Tee</p></div>
+    </div>
+    <div class="lookbook-item" onclick="openLookbook(1)">
+      <img src="img/pexels-photo-1689731.jpg?auto=compress&cs=tinysrgb&w=800" alt="Look 02">
+      <div class="lookbook-item-overlay"><span>Look 02</span><p>Concrete Jungle</p></div>
+    </div>
+    <div class="lookbook-item" onclick="openLookbook(2)">
+      <img src="img/pexels-photo-2916814.jpg?auto=compress&cs=tinysrgb&w=800" alt="Look 03">
+      <div class="lookbook-item-overlay"><span>Look 03</span><p>Glitch Print</p></div>
+    </div>
+    <div class="lookbook-item" onclick="openLookbook(3)">
+      <img src="img/pexels-photo-1656684.jpg?auto=compress&cs=tinysrgb&w=800" alt="Look 04">
+      <div class="lookbook-item-overlay"><span>Look 04</span><p>Static Dreams</p></div>
+    </div>
+    <div class="lookbook-item" onclick="openLookbook(4)">
+      <img src="img/pexels-photo-2741701.jpg?auto=compress&cs=tinysrgb&w=800" alt="Look 05">
+      <div class="lookbook-item-overlay"><span>Look 05</span><p>Signal Tee</p></div>
+    </div>
+    <div class="lookbook-item" onclick="openLookbook(5)">
+      <img src="img/pexels-photo-1192609.jpg?auto=compress&cs=tinysrgb&w=800" alt="Look 06">
+      <div class="lookbook-item-overlay"><span>Look 06</span><p>Raw Edge</p></div>
+    </div>
+    <div class="lookbook-item" onclick="openLookbook(6)">
+      <img src="img/pexels-photo-1040945.jpg?auto=compress&cs=tinysrgb&w=800" alt="Look 07">
+      <div class="lookbook-item-overlay"><span>Look 07</span><p>Static Boxy</p></div>
+    </div>
+    <div class="lookbook-item" onclick="openLookbook(7)">
+      <img src="img/pexels-photo-2905238.jpg?auto=compress&cs=tinysrgb&w=800" alt="Look 08">
+      <div class="lookbook-item-overlay"><span>Look 08</span><p>Noise Print</p></div>
+    </div>
+    <div class="lookbook-item" onclick="openLookbook(8)">
+      <img src="img/pexels-photo-1536619.jpg?auto=compress&cs=tinysrgb&w=800" alt="Look 09">
+      <div class="lookbook-item-overlay"><span>Look 09</span><p>Campaign Hero</p></div>
+    </div>
+
+  </div>
+
+  <div style="text-align:center; padding: 60px 40px;">
+    <a class="btn" onclick="showPage('shop')">Shop the Look</a>
+  </div>
+
+  <footer>
+    <div class="footer-brand">
+      <a class="logo" onclick="showPage('home')">WHIZZ<span style="color:var(--red)">°</span></a>
+      <p>Clothing untuk mereka yang hidup di frekuensi berbeda.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Explore</h4>
+      <a onclick="showPage('home')">Home</a>
+      <a onclick="showPage('shop')">Shop</a>
+      <a onclick="showPage('about')">About</a>
+    </div>
+    <div class="footer-col">
+      <h4>Info</h4>
+      <a href="#">Size Guide</a>
+      <a href="#">Shipping</a>
+    </div>
+    <div class="footer-col">
+      <h4>Social</h4>
+      <a href="#">Instagram</a>
+      <a href="#">TikTok</a>
+    </div>
+  </footer>
+  <div class="footer-bottom">
+    <p>© 2025 Whizz Clothing. All rights reserved.</p>
+    <p>Jakarta, Indonesia</p>
+  </div>
+
+</div><!-- /lookbook -->
+
+
+<!-- ════════════════ ABOUT PAGE ════════════════ -->
+<div class="page" id="page-about">
+
+  <div class="about-hero">
+    <img src="img/pexels-photo-2741701.jpg?auto=compress&cs=tinysrgb&w=1600" alt="About Hero">
+    <div class="about-hero-text">
+      <h1>WHIZZ°</h1>
+      <p>Est. 2023 — Jakarta, Indonesia</p>
+    </div>
+  </div>
+
+  <div class="about-body">
+    <div class="about-text">
+      <h2>Kami bukan<br>fashion brand.</h2>
+      <p>WHIZZ lahir dari frustrasi. Frustrasi terhadap clothing yang hanya jual tampilan, bukan substansi. Kami buat kaos untuk orang yang <strong>punya sesuatu untuk dikatakan</strong> — mereka yang tidak perlu teriak tapi tetap terdengar.</p>
+      <p>Mulai dari Jakarta, dengan tim kecil yang besar kepalanya. Setiap drop kami adalah pernyataan, bukan sekedar produk. <strong>Grafis bukan dekorasi</strong> — grafis adalah teks yang tidak muat di kalimat biasa.</p>
+      <p>Material premium. Fit yang tidak konyol. Harga yang masuk akal. Itu saja.</p>
+      <a class="btn red" onclick="showPage('shop')">Shop Now</a>
+    </div>
+    <div class="about-img-stack">
+      <img src="img/pexels-photo-1689731.jpg?auto=compress&cs=tinysrgb&w=800" alt="About 1">
+      <img src="img/pexels-photo-2916814.jpg?auto=compress&cs=tinysrgb&w=400" alt="About 2">
+      <img src="img/pexels-photo-1656684.jpg?auto=compress&cs=tinysrgb&w=400" alt="About 3">
+    </div>
+  </div>
+
+  <div class="values-row">
+    <div class="value-item">
+      <div class="value-num">01</div>
+      <div class="value-title">Material</div>
+      <div class="value-desc">100% Combed 30s dan 40s. Washing treatment manual untuk feel yang tepat. Tidak ada kompromi di sini.</div>
+    </div>
+    <div class="value-item">
+      <div class="value-num">02</div>
+      <div class="value-title">Grafis</div>
+      <div class="value-desc">Semua desain dikerjakan in-house. Tidak ada template, tidak ada stock art. Setiap motif punya cerita di baliknya.</div>
+    </div>
+    <div class="value-item">
+      <div class="value-num">03</div>
+      <div class="value-title">Produksi</div>
+      <div class="value-desc">Limited drop system. Maksimal 100 pcs per desain. Ketika habis, habis. Tidak ada restock.</div>
+    </div>
+  </div>
+
+  <div style="text-align:center; padding: 60px 40px; border-top: 1px solid #1f1f1f;">
+    <p class="section-label">// Kontak</p>
+    <h2 style="font-family:var(--font-display);font-size:42px;letter-spacing:0.04em;margin-bottom:20px">Reach Out</h2>
+    <p style="font-family:var(--font-mono);font-size:12px;letter-spacing:0.12em;color:var(--mid);margin-bottom:30px">whizz.jkt@gmail.com &nbsp;|&nbsp; @whizz.clothing</p>
+    <a class="btn" href="#">Kirim Pesan</a>
+  </div>
+
+  <footer>
+    <div class="footer-brand">
+      <a class="logo" onclick="showPage('home')">WHIZZ<span style="color:var(--red)">°</span></a>
+      <p>Clothing untuk mereka yang hidup di frekuensi berbeda.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Explore</h4>
+      <a onclick="showPage('home')">Home</a>
+      <a onclick="showPage('shop')">Shop</a>
+      <a onclick="showPage('lookbook')">Lookbook</a>
+    </div>
+    <div class="footer-col">
+      <h4>Info</h4>
+      <a href="#">Size Guide</a>
+      <a href="#">Shipping</a>
+    </div>
+    <div class="footer-col">
+      <h4>Social</h4>
+      <a href="#">Instagram</a>
+      <a href="#">TikTok</a>
+    </div>
+  </footer>
+  <div class="footer-bottom">
+    <p>© 2025 Whizz Clothing. All rights reserved.</p>
+    <p>Jakarta, Indonesia</p>
+  </div>
+
+</div><!-- /about -->
+
+<script>
+ const lookbookImages = [
+  "img/pexels-photo-2220316.jpg",
+  "img/pexels-photo-1689731.jpg",
+  "img/pexels-photo-2916814.jpg",
+  "img/pexels-photo-1656684.jpg",
+  "img/pexels-photo-2741701.jpg",
+  "img/pexels-photo-1192609.jpg",
+  "img/pexels-photo-1040945.jpg",
+  "img/pexels-photo-2905238.jpg",
+  "img/pexels-photo-1536619.jpg"
+];
+
+
+
+let currentSlide = 0;
+let startX = 0;
+
+function openLookbook(index) {
+  currentSlide = index;
+  updateSlide();
+  document.getElementById("lookbookModal").classList.add("show");
+}
+
+function closeLookbook() {
+  document.getElementById("lookbookModal").classList.remove("show");
+}
+
+function nextSlide() {
+  currentSlide = (currentSlide + 1) % lookbookImages.length;
+  updateSlide();
+}
+
+function prevSlide() {
+  currentSlide = (currentSlide - 1 + lookbookImages.length) % lookbookImages.length;
+  updateSlide();
+}
+
+function updateSlide() {
+  document.getElementById("lookbookImage").src = lookbookImages[currentSlide];
+}
+
+/* ✅ SWIPE (DI LUAR FUNCTION) */
+const img = document.getElementById("lookbookImage");
+
+img.addEventListener("touchstart", e => {
+  startX = e.touches[0].clientX;
+});
+
+img.addEventListener("touchend", e => {
+  let endX = e.changedTouches[0].clientX;
+
+  if (startX - endX > 50) nextSlide();
+  if (endX - startX > 50) prevSlide();
+});
+  
+</script>
+
+<script>
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+    document.getElementById('page-' + id).classList.add('active');
+    document.getElementById('nav-' + id).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // Filter buttons
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+</script>
+
+<script>
+function openModal(img, name, price, link) {
+  document.getElementById("modalImg").src = img;
+  document.getElementById("modalName").innerText = name;
+  document.getElementById("modalPrice").innerText = price;
+  document.getElementById("modalLink").href = link;
+
+  document.body.style.overflow = "hidden"; // lock scroll
+  document.getElementById("productModal").classList.add("show");
+}
+
+function closeModal() {
+  document.body.style.overflow = ""; // unlock scroll
+  document.getElementById("productModal").classList.remove("show");
+}
+
+// klik luar modal = close
+window.onclick = function(e) {
+  const modal = document.getElementById("productModal");
+  if (e.target === modal) {
+    closeModal();
+  }
+}
+</script>
+
+<script>
+function toggleMenu() {
+  document.querySelector('.nav-links').classList.toggle('show');
+}
+</script>
+
+
+<!-- popup shop -->
+<div id="productModal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn" onclick="closeModal()">&times;</span>
+    
+    <img id="modalImg" src="">
+    <h2 id="modalName"></h2>
+    <p id="modalPrice"></p>
+
+    <a id="modalLink" href="#" target="_blank" class="buy-btn">
+      <i class="fa-brands fa-whatsapp"></i> Order via WhatsApp
+    </a>
+    </a>
+  </div>
+</div>
+
+<!-- popup look -->
+<div id="lookbookModal" class="modal">
+  <div class="modal-content" style="max-width:800px">
+
+    <span class="close-btn" onclick="closeLookbook()">&times;</span>
+
+    <img id="lookbookImage" src="" style="width:100%; border-radius:12px">
+
+    <div style="display:flex; justify-content:space-between; margin-top:15px;">
+      <button class="btn" onclick="prevSlide()">Prev</button>
+      <button class="btn" onclick="nextSlide()">Next</button>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
