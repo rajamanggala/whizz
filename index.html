@@ -73,7 +73,7 @@
     text-decoration: none;
   }
   .logo img {
-    height: 40px;
+    height: 50px;
     width: auto;
     cursor: pointer;
   }
@@ -790,10 +790,10 @@
     <img src="img/whz.png" alt="WHIZZ Logo">
   </a>
   <ul class="nav-links">
-    <li><a onclick="showPage('home')" id="nav-home" class="active">Home</a></li>
-    <li><a onclick="showPage('shop')" id="nav-shop">Goods</a></li>
-    <li><a onclick="showPage('lookbook')" id="nav-lookbook">Lookbook</a></li>
-    <li><a onclick="showPage('about')" id="nav-about">About</a></li>
+    <li><a onclick="showPage('home'); closeMenu()" id="nav-home" class="active">Home</a></li>
+    <li><a onclick="showPage('shop'); closeMenu()" id="nav-shop">Goods</a></li>
+    <li><a onclick="showPage('lookbook'); closeMenu()" id="nav-lookbook">Lookbook</a></li>
+    <li><a onclick="showPage('about'); closeMenu()" id="nav-about">About</a></li>
   </ul>
   <div class="nav-icons">
       <!-- WhatsApp -->
@@ -956,19 +956,71 @@
   </div>
 
   <div class="product-grid">
-
     <!-- 1 -->
-    <div class="product-card"
-    onclick="openModal('img/shop/A False Messenger-detail.jpg','Void Graphic Tee','Rp 289.000','https://wa.me/123?text=Halo%20saya%20mau%20order%20Void%20Graphic%20Tee')">
-      <div class="product-card-img">
-        <img class="img-main" src="img/shop/A False Messenger.jpg">
-        <img class="img-detail" src="img/shop/A False Messenger-detail.jpg">
-      </div>
-      <div class="product-card-info">
-        <div class="product-card-name">A False Messenger</div>
-        <div class="product-card-price">Rp 289.000</div>
-      </div>
-    </div>
+  <!-- 5 -->
+<div class="product-card"
+onclick="openModal('img/shop/Pulled Under-detail.jpg','Pulled Under Tee','Rp 299.000','https://wa.me/123?text=Halo%20saya%20mau%20order%20Pulled%20Under')">
+  <div class="product-card-img">
+    <img class="img-main" src="img/shop/Pulled Under.jpg">
+    <img class="img-detail" src="img/shop/Pulled Under-detail.jpg">
+  </div>
+  <div class="product-card-info">
+    <div class="product-card-name">Pulled Under</div>
+    <div class="product-card-price">Rp 299.000</div>
+  </div>
+</div>
+
+<!-- 6 -->
+<div class="product-card"
+onclick="openModal('img/shop/miserere mei deus-detail.jpg','Miserere Mei Deus Tee','Rp 299.000','https://wa.me/123?text=Halo%20saya%20mau%20order%20Miserere%20Mei%20Deus')">
+  <div class="product-card-img">
+    <img class="img-main" src="img/shop/miserere mei deus.jpg">
+    <img class="img-detail" src="img/shop/miserere mei deus-detail.jpg">
+  </div>
+  <div class="product-card-info">
+    <div class="product-card-name">Miserere Mei Deus</div>
+    <div class="product-card-price">Rp 299.000</div>
+  </div>
+</div>
+
+<!-- 7 -->
+<div class="product-card"
+onclick="openModal('img/shop/metanoia-detail.jpg','Metanoia Tee','Rp 299.000','https://wa.me/123?text=Halo%20saya%20mau%20order%20Metanoia')">
+  <div class="product-card-img">
+    <img class="img-main" src="img/shop/metanoia.jpg">
+    <img class="img-detail" src="img/shop/metanoia-detail.jpg">
+  </div>
+  <div class="product-card-info">
+    <div class="product-card-name">Metanoia</div>
+    <div class="product-card-price">Rp 299.000</div>
+  </div>
+</div>
+
+<!-- 8 -->
+<div class="product-card"
+onclick="openModal('img/shop/shut down-detail.jpg','Shut Down Tee','Rp 299.000','https://wa.me/123?text=Halo%20saya%20mau%20order%20Shut%20Down')">
+  <div class="product-card-img">
+    <img class="img-main" src="img/shop/shut down.jpg">
+    <img class="img-detail" src="img/shop/shut down-detail.jpg">
+  </div>
+  <div class="product-card-info">
+    <div class="product-card-name">Shut Down</div>
+    <div class="product-card-price">Rp 299.000</div>
+  </div>
+</div>
+
+<!-- 9 -->
+<div class="product-card"
+onclick="openModal('img/shop/redeemed-detail.jpg','Redeemed Tee','Rp 299.000','https://wa.me/123?text=Halo%20saya%20mau%20order%20Redeemed')">
+  <div class="product-card-img">
+    <img class="img-main" src="img/shop/redeemed.jpg">
+    <img class="img-detail" src="img/shop/redeemed-detail.jpg">
+  </div>
+  <div class="product-card-info">
+    <div class="product-card-name">Redeemed</div>
+    <div class="product-card-price">Rp 299.000</div>
+  </div>
+</div>
 
     <!-- 2 -->
     <div class="product-card"
@@ -1009,7 +1061,6 @@
         <div class="product-card-price">Rp 349.000</div>
       </div>
     </div>
-   
   </div><!-- /product-grid -->
 
   <footer>
@@ -1339,6 +1390,16 @@ function toggleMenu() {
     heroVideo.muted = true;
     heroVideo.play().catch(() => {});
   }
+</script>
+
+<script>
+function toggleMenu() {
+  document.querySelector('.nav-links').classList.toggle('show');
+}
+
+function closeMenu() {
+  document.querySelector('.nav-links').classList.remove('show');
+}
 </script>
 
 
