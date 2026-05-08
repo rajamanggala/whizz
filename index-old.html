@@ -391,154 +391,6 @@
     margin-left: 12px;
   }
 
-  /* ─── VIDEOS PAGE ─── */
-  .videos-header {
-    padding: 60px 40px;
-    background: linear-gradient(135deg, rgba(204, 34, 0, 0.15) 0%, rgba(10, 10, 10, 0.8) 100%);
-    border-bottom: 1px solid #1f1f1f;
-    text-align: center;
-  }
-
-  .videos-header h1 {
-    font-family: var(--font-display);
-    font-size: clamp(48px, 6vw, 72px);
-    margin-bottom: 15px;
-    letter-spacing: 0.04em;
-  }
-
-  .videos-header p {
-    font-family: var(--font-mono);
-    font-size: 12px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--mid);
-    max-width: 600px;
-    margin: 0 auto;
-  }
-
-  .videos-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 28px;
-    padding: 80px 40px;
-  }
-
-  .video-card {
-    position: relative;
-    background: #1a1a1a;
-    border: 1px solid #2a2a2a;
-    border-radius: 8px;
-    overflow: hidden;
-    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
-
-  .video-card:hover {
-    border-color: var(--red);
-    transform: translateY(-8px);
-    box-shadow: 0 20px 40px rgba(204, 34, 0, 0.2);
-  }
-
-  .video-thumbnail {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 16/9;
-    overflow: hidden;
-    background: #0a0a0a;
-  }
-
-  .video-thumbnail img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s;
-  }
-
-  .video-card:hover .video-thumbnail img {
-    transform: scale(1.05);
-  }
-
-  .play-overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(10, 10, 10, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: opacity 0.3s;
-  }
-
-  .video-card:hover .play-overlay {
-    opacity: 1;
-  }
-
-  .play-icon {
-    width: 70px;
-    height: 70px;
-    background: var(--red);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 28px;
-    color: white;
-    transition: transform 0.2s;
-  }
-
-  .video-card:hover .play-icon {
-    transform: scale(1.1);
-  }
-
-  .video-info {
-    padding: 24px;
-  }
-
-  .video-artist {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--red);
-    margin-bottom: 8px;
-  }
-
-  .video-title {
-    font-family: var(--font-display);
-    font-size: 22px;
-    letter-spacing: 0.04em;
-    margin-bottom: 12px;
-    color: var(--white);
-  }
-
-  .video-product {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    color: var(--mid);
-    margin-bottom: 16px;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-  }
-
-  .video-btn {
-    display: inline-block;
-    font-family: var(--font-mono);
-    font-size: 10px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    padding: 11px 20px;
-    border: 1px solid var(--red);
-    color: var(--red);
-    background: transparent;
-    cursor: pointer;
-    transition: all 0.2s;
-    border-radius: 3px;
-  }
-
-  .video-btn:hover {
-    background: var(--red);
-    color: var(--white);
-  }
-
   /* ─── ABOUT ─── */
   .about-hero {
     height: 60vh;
@@ -941,7 +793,6 @@
     <li><a onclick="showPage('home'); closeMenu()" id="nav-home" class="active">Home</a></li>
     <li><a onclick="showPage('shop'); closeMenu()" id="nav-shop">Goods</a></li>
     <li><a onclick="showPage('lookbook'); closeMenu()" id="nav-lookbook">Lookbook</a></li>
-    <li><a onclick="showPage('videos'); closeMenu()" id="nav-videos">Resonances</a></li>
     <li><a onclick="showPage('about'); closeMenu()" id="nav-about">About</a></li>
   </ul>
   <div class="nav-icons">
@@ -1007,7 +858,7 @@
     <div class="featured-grid">
       <div class="featured-item tall" onclick="showPage('shop')">
         <img src="img/pexels-photo-2220316.jpg?auto=compress&cs=tinysrgb&w=800" alt="Drop 01">
-        <div class="featured-item-info"><span>Drop 001</span><p>Metanoia</p></div>
+        <div class="featured-item-info"><span>Drop 001</span><p>Void Tee</p></div>
       </div>
       <div class="featured-item" onclick="showPage('shop')">
         <img src="img/pexels-photo-1040945.jpg?auto=compress&cs=tinysrgb&w=800" alt="Drop 02">
@@ -1329,71 +1180,6 @@ onclick="openModal('img/shop/redeemed-detail.jpg','Redeemed Tee','Rp 299.000','h
 </div><!-- /lookbook -->
 
 
-<!-- ════════════════ VIDEOS PAGE ════════════════ -->
-<div class="page" id="page-videos">
-
-  <div class="videos-header">
-    <h1>Echo Stories</h1>
-    <p>Each design carries its own story — Watch the jingle behind every piece</p>
-  </div>
-
-  <div class="videos-grid">
-    <!-- Video Card 1 -->
-    <div class="video-card">
-      <div class="video-thumbnail">
-        <img src="img/resonance/metanoia-cover.jpg?auto=compress&cs=tinysrgb&w=600" alt="Void Tee">
-        <div class="play-overlay"
-            onclick="openVideoModal(
-            'https://www.youtube.com/embed/94hZ6ZQoNfU?autoplay=1',
-            'Void Tee',
-            'Rp 299.000',
-            'img/pexels-photo-2220316.jpg'
-          )">
-          <div class="play-icon">
-            <i class="fas fa-play"></i>
-          </div>
-        </div>
-      </div>
-      <div class="video-info">
-        <div class="video-artist">Whizz Collective</div>
-        <h3 class="video-title">Metanoia</h3>
-        <p class="video-product">Rp 150.000</p>
-        <button class="video-btn" onclick="openVideoModal('https://www.youtube.com/embed/94hZ6ZQoNfU?autoplay=1', 'Metanoia', 'Rp 299.000', 'img/shop/metanoia-detail.jpg')">Watch</button>
-        <button class="video-btn" style="margin-left: 8px; border-color:var(--white); color:var(--white);" onclick="openModal('img/shop/metanoia-detail.jpg', 'Metanoia', 'Rp 299.000', 'https://wa.me/123')">Shop</button>
-      </div>
-    </div>
-  </div>
-
-  <footer>
-    <div class="footer-brand">
-      <a class="logo" onclick="showPage('home')"><img src="img/whz.png" alt="WHIZZ Logo"></a>
-      <p>Clothing untuk mereka yang hidup di frekuensi berbeda.</p>
-    </div>
-    <div class="footer-col">
-      <h4>Explore</h4>
-      <a onclick="showPage('home')">Home</a>
-      <a onclick="showPage('shop')">Goods</a>
-      <a onclick="showPage('lookbook')">Lookbook</a>
-    </div>
-    <div class="footer-col">
-      <h4>Info</h4>
-      <a href="#">Size Guide</a>
-      <a href="#">Shipping</a>
-    </div>
-    <div class="footer-col">
-      <h4>Social</h4>
-      <a href="https://instagram.com/whizz.clothing">Instagram</a>
-      <a href="https://wa.me/123">WhatsApp</a>
-    </div>
-  </footer>
-  <div class="footer-bottom">
-    <p>© 2025 Whizz Clothing. All rights reserved.</p>
-    <p>Jakarta, Indonesia</p>
-  </div>
-
-</div><!-- /videos -->
-
-
 <!-- ════════════════ ABOUT PAGE ════════════════ -->
 <div class="page" id="page-about">
 
@@ -1593,55 +1379,6 @@ window.onclick = function(e) {
 </script>
 
 <script>
-// Video Modal
-function openVideoModal(youtubeUrl, productName, price, productImg) {
-  const videoId = extractYoutubeId(youtubeUrl);
-  const iframeUrl = `https://www.youtube.com/embed/${videoId}`;
-  
-  document.getElementById("videoIframe").src = iframeUrl;
-  document.getElementById("videoProductName").innerText = productName;
-  document.getElementById("videoProductPrice").innerText = price;
-  document.getElementById("videoProductImg").src = productImg;
-  document.getElementById("videoShopBtn").dataset.img = productImg;
-  document.getElementById("videoShopBtn").dataset.name = productName;
-  document.getElementById("videoShopBtn").dataset.price = price;
-  
-  document.body.style.overflow = "hidden";
-  document.getElementById("videoModal").classList.add("show");
-}
-
-function closeVideoModal() {
-  document.getElementById("videoIframe").src = "";
-  document.body.style.overflow = "";
-  document.getElementById("videoModal").classList.remove("show");
-}
-
-function extractYoutubeId(url) {
-  if (url.includes('embed/')) {
-    return url.split('embed/')[1];
-  }
-  return url;
-}
-
-function shopFromVideo() {
-  const btn = document.getElementById("videoShopBtn");
-  const img = btn.dataset.img;
-  const name = btn.dataset.name;
-  const price = btn.dataset.price;
-  
-  openModal(img, name, price, 'https://wa.me/123');
-  closeVideoModal();
-}
-
-window.onclick = function(e) {
-  const videoModal = document.getElementById("videoModal");
-  if (e.target === videoModal) {
-    closeVideoModal();
-  }
-}
-</script>
-
-<script>
 function toggleMenu() {
   document.querySelector('.nav-links').classList.toggle('show');
 }
@@ -1665,35 +1402,6 @@ function closeMenu() {
 }
 </script>
 
-
-<!-- Video Modal -->
-<div id="videoModal" class="modal">
-  <div class="modal-content" style="max-width:900px">
-    <span class="close-btn" onclick="closeVideoModal()">&times;</span>
-    
-    <div style="position:relative; width:100%; padding-bottom:56.25%; margin-bottom:20px; overflow:hidden; border-radius:8px;">
-      <iframe 
-        id="videoIframe"
-        style="position:absolute; top:0; left:0; width:100%; height:100%; border:none; border-radius:8px;"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-        allowfullscreen="">
-      </iframe>
-    </div>
-
-    <div style="background:#1a1a1a; padding:24px; border-radius:8px; margin-bottom:20px;">
-      <div style="display:flex; gap:20px;">
-        <img id="videoProductImg" src="" style="width:100px; height:100px; object-fit:cover; border-radius:6px;">
-        <div style="flex:1;">
-          <h3 id="videoProductName" style="font-family:var(--font-display); font-size:20px; margin-bottom:4px;"></h3>
-          <p id="videoProductPrice" style="font-family:var(--font-mono); font-size:14px; color:var(--mid); margin-bottom:16px;"></p>
-          <button id="videoShopBtn" class="buy-btn" onclick="shopFromVideo()" style="width:100%;">
-            <i class="fa-brands fa-whatsapp"></i> Shop Now via WhatsApp
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
 <!-- popup shop -->
 <div id="productModal" class="modal">
